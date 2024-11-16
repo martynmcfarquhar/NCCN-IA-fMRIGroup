@@ -57,6 +57,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '1.sources-variance';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -388,7 +390,10 @@ document.write(`
 <p><span class="caption-number">Fig. 1 </span><span class="caption-text">Illustration of how multiple measurements across multiple subjects creates two sources of variance, one corresponding to variance <em>within</em> each subject and one corresponding to variance <em>between</em> the subjects.</span><a class="headerlink" href="#variance-sources-fig" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>This distinction is important because our modelling choices influence which one of these sources of variance our model variance represents. This directly influences the calculation of the standard error, which directly affects the magnitude of our test statistics and thus the magnitude of the p-values. This choice therefore has a direct influence on our inference, as we will come to see.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The distinction between the <em>within-subject</em> and <em>between-subjects</em> variance turns out to be very important, because our modelling choices influence which one of these sources the variance calculated from the GLM residuals represents. This directly influences the calculation of the standard errors, which then directly affects the magnitude of our test statistics and thus the magnitude of the <span class="math notranslate nohighlight">\(p\)</span>-values. As such, understanding the difference is therefore critical for inference, as we will come to see.</p>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
