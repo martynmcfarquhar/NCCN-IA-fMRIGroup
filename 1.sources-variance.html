@@ -381,7 +381,10 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#within-subject-variance">Within-subject Variance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#between-subject-variance">Between-subject Variance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bigger-picture">The Bigger Picture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bigger-picture">The Bigger Picture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hierarchical-sampling-model">The Hierarchical Sampling Model</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -408,32 +411,39 @@ document.write(`
 </div>
 <section id="within-subject-variance">
 <h2>Within-subject Variance<a class="headerlink" href="#within-subject-variance" title="Link to this heading">#</a></h2>
-<p>The within-subject variance corresponds to the spread of data points around each subject’s mean. This is illustrated in {numref}``, where the orange lines represent the individual subject means (<span class="math notranslate nohighlight">\(\mu_1\)</span>, <span class="math notranslate nohighlight">\(\mu_2\)</span>, <span class="math notranslate nohighlight">\(\mu_3\)</span>) and the spread is indicated by the dashed vertical lines. For each subject, we can therefore calculate a variance value that captures their own personal degree of error. This tells us how <em>internally consistent</em> that subject is. The smaller the errors, the more consistent a subject is across the repeated measurements. In other words, the better the mean is as a representation of that single subject.</p>
+<p>The <em>within-subject</em> variance corresponds to the spread of data points around each subject’s mean. This is illustrated in <a class="reference internal" href="#ws-variance-fig"><span class="std std-numref">Fig. 2</span></a>, where the orange lines represent the individual subject means (<span class="math notranslate nohighlight">\(\mu_1\)</span>, <span class="math notranslate nohighlight">\(\mu_2\)</span>, <span class="math notranslate nohighlight">\(\mu_3\)</span>) and the spread is indicated by the dashed vertical lines. For each subject, we can therefore calculate a variance value that captures their own personal degree of error. This tells us how <em>internally consistent</em> that subject is. The smaller the errors, the more consistent a subject is across the repeated measurements. In other words, the better the mean is as a representation of that single subject.</p>
 <figure class="align-default" id="ws-variance-fig">
 <a class="reference internal image-reference" href="_images/ws-variance.png"><img alt="_images/ws-variance.png" src="_images/ws-variance.png" style="width: 550px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 2 </span><span class="caption-text">Illustration of the <em>within-subject</em> variance for 3 subjects each with 5 repeated measurements.</span><a class="headerlink" href="#ws-variance-fig" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>From the perspective of fMRI, our repeated measurements for each subject are the time-series values. From this perspective, the 5 measurements shown in {numref}`` are representative of the 200-odd measurements that make up an fMRI time-series. The time-series model is not usually just a simple mean, nevertheless, we still get errors in terms of the discrepancy between the predicted values of the model and the raw data. From these errors, we can calculate an estimate of the within-subject variance. As such, the <em>within-subject</em> variance for fMRI is captured by the variance calculated from the single-subject GLM analysis. This is the <code class="docutils literal notranslate"><span class="pre">ResMS.nii</span></code> image saved by <code class="docutils literal notranslate"><span class="pre">SPM</span></code> for each subject.</p>
+<p>From the perspective of fMRI, our repeated measurements for each subject are the time-series values. From this perspective, the 5 measurements shown in <a class="reference internal" href="#ws-variance-fig"><span class="std std-numref">Fig. 2</span></a> are representative of the 200-odd measurements that make up an fMRI time-series. The time-series model is not usually just a simple mean, nevertheless, we still get errors in terms of the discrepancy between the predicted values of the model and the raw data. From these errors, we can calculate an estimate of the within-subject variance. As such, the <em>within-subject</em> variance for fMRI is captured by the variance calculated from the single-subject GLM analysis. This is the <code class="docutils literal notranslate"><span class="pre">ResMS.nii</span></code> image saved by <code class="docutils literal notranslate"><span class="pre">SPM</span></code> for each subject.</p>
 </section>
 <section id="between-subject-variance">
 <h2>Between-subject Variance<a class="headerlink" href="#between-subject-variance" title="Link to this heading">#</a></h2>
+<p>The <em>between-subjects</em> variance corresponds to the spread of subject means around a group mean. This is illustrated in <a class="reference internal" href="#bs-variance-fig"><span class="std std-numref">Fig. 3</span></a>, where the orange lines represent the subject means (as before) and the green line represents the group mean (the average of all the subject means). This time, the errors correspond to the vertical distances between each subject’s mean and the group mean. From this we can calculate a variance that captures how consistent the subjects are as a group. Alternatively, we can think of this as how similar the subjects are to each other, or how well the group mean represents the group as a whole. The smaller this value, the closer the subject means are to each other and the more consistent the group is.</p>
 <figure class="align-default" id="bs-variance-fig">
 <a class="reference internal image-reference" href="_images/bs-variance.png"><img alt="_images/bs-variance.png" src="_images/bs-variance.png" style="width: 550px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of the <em>between-subject</em> variance for 3 subjects.</span><a class="headerlink" href="#bs-variance-fig" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<p>The concept of between-subject variance is important for allowing us to generalise from our current sample of 3 subjects to the wider population. This is because it gives us an estimate of how variable we expect subjects to be <em>in the population</em>. If we are going to make inference about the group mean, we need to have some sense of how well the group mean describes the population of subjects. If the between-subjects variance is high, it suggests that the individual subject means are highly variable and that the group mean is <em>not</em> a good summary. Conversely, if the between-subjects variance is low then it suggests that the individual subject means are very consistent and that the group mean <em>is</em> a good summary.</p>
 </section>
 <section id="the-bigger-picture">
 <h2>The Bigger Picture<a class="headerlink" href="#the-bigger-picture" title="Link to this heading">#</a></h2>
+<p>The concepts of <em>within-subject</em> and <em>between-subjects</em> variance play into our conceptualisation of the data generating process. If we imagine the simple case of being interested in only a single population, we only have to think of a single population distribution. This distribution has a mean and a variance that we want to estimate. This variance is the <em>between-subjects</em> variance. From this distribution, we sample individual subjects. As this is a distribution of averages we are effectively sampling a random assortment of subject means. Sampling multiple values from each subject represents another level of sampling, where we are drawing values from the individual subject distributions. These are parameterised using the individual subject means and individual subject variances. These individual subject variances are the <em>within-subject variances</em>, as illustrated in <a class="reference internal" href="#sampling-model-fig"><span class="std std-numref">Fig. 4</span></a>.</p>
 <figure class="align-default" id="sampling-model-fig">
 <a class="reference internal image-reference" href="_images/sampling-model.png"><img alt="_images/sampling-model.png" src="_images/sampling-model.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of …</span><a class="headerlink" href="#sampling-model-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of the repeated measurements sampling model. …</span><a class="headerlink" href="#sampling-model-fig" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<section id="the-hierarchical-sampling-model">
+<h3>The Hierarchical Sampling Model<a class="headerlink" href="#the-hierarchical-sampling-model" title="Link to this heading">#</a></h3>
+<p>We can formalise the sampling model illustrated in <a class="reference internal" href="#sampling-model-fig"><span class="std std-numref">Fig. 4</span></a> as a <em>hierarchical linear model</em>, also known as a <em>multilevel linear model</em>.</p>
+</section>
 </section>
 </section>
 
@@ -503,7 +513,10 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#within-subject-variance">Within-subject Variance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#between-subject-variance">Between-subject Variance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bigger-picture">The Bigger Picture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bigger-picture">The Bigger Picture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hierarchical-sampling-model">The Hierarchical Sampling Model</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
