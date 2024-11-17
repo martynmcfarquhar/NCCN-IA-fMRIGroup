@@ -441,7 +441,10 @@ document.write(`
 <p class="admonition-title">Note</p>
 <p>In statistical jargon, if we do not treat subjects as being drawn from a larger population then the subjects represent a <em>fixed-effect</em>. As such, this approach is known as a <em>fixed-effects analysis</em>, sometimes shortened to <a class="reference external" href="https://en.wikipedia.org/wiki/Final_Fantasy_X">FFX</a>.</p>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
 <p>The conclusion from this is that a FFX approach is <em>not appropriate</em> for modelling group-level fMRI data. Although it may seem somewhat harmless doing things this way, the issue is that the within-subject variance is generally much smaller than the between-subjects variance. As such, trying to use the within-subject variance for inference about a population leads to a <em>massively inflated false positive rate</em>.</p>
+</div>
 </section>
 <section id="what-use-is-a-ffx-analysis">
 <h2>What Use is a FFX Analysis?<a class="headerlink" href="#what-use-is-a-ffx-analysis" title="Link to this heading">#</a></h2>
