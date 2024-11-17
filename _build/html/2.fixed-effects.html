@@ -382,7 +382,6 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-multiple-subjects-at-the-1st-level">Stacking Multiple Subjects at the 1st-level</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-use-is-a-ffx-analysis">What Use is a FFX Analysis?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history-of-ffx-analyses">History of FFX Analyses</a></li>
 </ul>
             </nav>
         </div>
@@ -455,9 +454,11 @@ document.write(`
 <p><span class="caption-number">Fig. 6 </span><span class="caption-text">Reminder that the <code class="docutils literal notranslate"><span class="pre">SPM</span></code> interface does imply that you can add multiple subjects at the 1st-level.</span><a class="headerlink" href="#spm-add-sub-fig" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-</section>
-<section id="history-of-ffx-analyses">
-<h2>History of FFX Analyses<a class="headerlink" href="#history-of-ffx-analyses" title="Link to this heading">#</a></h2>
+<p>The second reason is that there is <em>sometimes</em> good reason for using FFX. If you find yourself in a situation where you only want to reach conclusions about a single set of subjects, then a FFX analysis is entirely appropriate. Case studies are not entirely uncommon, particularly if you are studying individuals with very specific deficits or unique pathologies. In addition, if you have multiple sessions from the same subject, then you can treat this the same way as a FFX analysis by stacking the sessions into the same design matrix. Because this is still inference on the same subject, pooling the within-subject variance across the multiple sessions is a perfectly justifiable thing to do. So, there are times when FFX are appropriate, even if this is not the methods we are going to use for most of our analyses.</p>
+<div class="admonition-history-of-ffx-analyses admonition">
+<p class="admonition-title">History of FFX Analyses</p>
+<p>Many early fMRI studies erroneously used a FFX approach. Perhaps the most surprising thing about this is how long it took the fMRI community to realise there was a problem. The earliest reference to this issue is from a 1998 conference abstract submitted by <a class="reference external" href="https://www.fil.ion.ucl.ac.uk/spm/doc/papers/aph_rfx.pdf">Holmes &amp; Friston</a>. Considering the fact that methods for analysing fMRI data had been progressing steadily from 1992 onwards, this was a significant delay in terms of understanding the most appropriate means of making group-level inference. Even then, the solution proposed by <a class="reference external" href="https://www.fil.ion.ucl.ac.uk/spm/doc/papers/aph_rfx.pdf">Holmes &amp; Friston (1998)</a> was not properly validated until 2009 by <a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S1053811909005473?via%3Dihub">Mumford &amp; Nichols</a>, over 10 years later.</p>
+</div>
 </section>
 </section>
 
@@ -527,7 +528,6 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-multiple-subjects-at-the-1st-level">Stacking Multiple Subjects at the 1st-level</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-use-is-a-ffx-analysis">What Use is a FFX Analysis?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history-of-ffx-analyses">History of FFX Analyses</a></li>
 </ul>
   </nav></div>
 
