@@ -441,7 +441,7 @@ document.write(`
 <figure class="align-default" id="sampling-model-fig">
 <a class="reference internal image-reference" href="_images/sampling-model.png"><img alt="_images/sampling-model.png" src="_images/sampling-model.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of the repeated measurements sampling model. …</span><a class="headerlink" href="#sampling-model-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of the repeated measurements sampling model.</span><a class="headerlink" href="#sampling-model-fig" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="the-hierarchical-perspective">
@@ -458,6 +458,19 @@ y_{ij}  &amp;= \mu_{j} + \epsilon_{ij} &amp;\quad \text{(Level 1)} \\
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The terms “1st-level analysis” and “2nd-level” analysis in <code class="docutils literal notranslate"><span class="pre">SPM</span></code> correspond to this hierarchical sampling perspective, where Level 1 is each individual subject and Level 2 is a group of subjects.</p>
+</div>
+<p>Importantly, we can connect this hierarchical view with the illustration is <a class="reference internal" href="#sampling-model-fig"><span class="std std-numref">Fig. 4</span></a> by writing these equations in terms of distributions</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+y_{ij}  &amp;\sim \mathcal{N}(\mu_{j}, \sigma^{2}_{w_{j}}) &amp;\quad \text{(Level 1)} \\
+\mu_{j} &amp;\sim \mathcal{N}(\mu, \sigma^{2}_{b}) &amp;\quad \text{(Level 2)} \\
+\end{align}
+\end{split}\]</div>
+<p>The important consequence of all of this is that if we were only interested in a one subject (for instance, a case study) then the population distribution is irrelevant. In which case, we only need the <em>within-subject</em> variance. This would also be true if we had a set of subjects where we were only interested in those specific subjects and no one else. Again, the population distribution does not matter because we do not care about the population, only those subjects (those subjects <em>are</em> the population). However, if we want to make generalisations to the whole population from a sample, then we need to take the between-subjects variance into account.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The connection between all this information and group-level modelling of fMRI data will not be clear at this point. However, we will see how this distinction between different sources of variance is key to understanding the approaches that have been taken over the years. When you have been through this lesson once, it might be a good idea to re-read this section with the bigger picture in mind. This will help you see the connection between these details and the approaches described in the remainder of this lesson.</p>
 </div>
 </section>
 </section>
