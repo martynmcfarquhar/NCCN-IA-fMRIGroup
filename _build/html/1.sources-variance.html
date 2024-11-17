@@ -398,7 +398,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="sources-of-variance">
 <h1>Sources of Variance<a class="headerlink" href="#sources-of-variance" title="Link to this heading">#</a></h1>
-<p>Before exploring group-level models for fMRI, one of the key concepts we need to understand is <em>sources of variance</em>. When we have multiple subjects, each with multiple measurements, there are two general reasons why the data differs from one measurement to the next. One of these reasons is the <em>internal consistency</em> of a single subject, and the other reason is the <em>general consistency</em> of each subject within the group. To make this clearer, <a class="reference internal" href="#variance-sources-fig"><span class="std std-numref">Fig. 1</span></a> shows some hypothetical data from 3 subjects who were each measured 5 times. Here, we can see two distinct patterns in the data. One pattern corresponds to how close the data points are <em>within</em> each subject, while the other pattern corresponds to how close the data points are <em>between</em> each of the subjects. These sources correspond to the <em>within-subject</em> and <em>between-subjects</em> variance, as will be explored below.</p>
+<p>Before exploring group-level models for fMRI, one of the key concepts we need to understand is <em>sources of variance</em>. When we have multiple subjects, each with multiple measurements, there are two general reasons why the data differs from one measurement to the next. One of these reasons is the <em>internal consistency</em> of a single subject, and the other reason is the <em>general consistency</em> of each subject within the group. To make this clearer, <a class="reference internal" href="#variance-sources-fig"><span class="std std-numref">Fig. 1</span></a> shows some hypothetical data from 3 subjects who were each measured 5 times. Here, we can see two distinct patterns in the data. One pattern corresponds to how close the data points are <em>within</em> each subject, while the other pattern corresponds to how close the data points are <em>between</em> each of the subjects. These sources correspond to the <em>within-subject</em> and <em>between-subjects</em> variance.</p>
 <figure class="align-default" id="variance-sources-fig">
 <a class="reference internal image-reference" href="_images/variance-sources.png"><img alt="_images/variance-sources.png" src="_images/variance-sources.png" style="width: 550px;" /></a>
 <figcaption>
@@ -446,7 +446,19 @@ document.write(`
 </figure>
 <section id="the-hierarchical-perspective">
 <h3>The Hierarchical Perspective<a class="headerlink" href="#the-hierarchical-perspective" title="Link to this heading">#</a></h3>
-<p>We can formalise the sampling model illustrated in <a class="reference internal" href="#sampling-model-fig"><span class="std std-numref">Fig. 4</span></a> as a <em>hierarchical linear model</em>, also known as a <em>multilevel linear model</em>.</p>
+<p>We can formalise the sampling model illustrated in <a class="reference internal" href="#sampling-model-fig"><span class="std std-numref">Fig. 4</span></a> as a <em>hierarchical linear model</em>, also known as a <em>multilevel linear model</em>. In this format, we can write, for subject <span class="math notranslate nohighlight">\(j\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+y_{ij}  &amp;= \mu_{j} + \epsilon_{ij} &amp;\quad \text{(Level 1)} \\
+\mu_{j} &amp;= \mu + \zeta_{j} &amp;\quad \text{(Level 2)} \\
+\end{align}
+\end{split}\]</div>
+<p>In this form, the repeated measurements for subject <span class="math notranslate nohighlight">\(j\)</span> can be modelled in terms of each subject’s individual mean <span class="math notranslate nohighlight">\((\mu_{j})\)</span>. This forms the 1st-level of the model. The individual subject means can then be modelled in terms of the population mean <span class="math notranslate nohighlight">\((\mu)\)</span>. This forms the 2nd-level of the model.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The terms “1st-level analysis” and “2nd-level” analysis in <code class="docutils literal notranslate"><span class="pre">SPM</span></code> correspond to this hierarchical sampling perspective, where Level 1 is each individual subject and Level 2 is a group of subjects.</p>
+</div>
 </section>
 </section>
 </section>
