@@ -57,6 +57,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '2.fixed-effects';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -405,16 +407,51 @@ document.write(`
 </figcaption>
 </figure>
 <p>Although this may initially seem reasonable, there are some major problems with this approach. To see what they are, consider writing this model in terms of the GLM</p>
-<p>where 0 refers to a sub-matrix of zeros. The errors in this model are just a stack of the errors from the individual single-subject models. As we know, these represent within-subject errors because they tell us the discrepancies between the original data and the model for that one subject. So the overall model variance for this big GLM is the average within-subject variance from across each subject. This means that any hypothesis tests from this model will use the average within-subject variance for inference. What this does not do is take the between-subject variance into account which, as we have established, is the most important element for making inference on a group of subjects. There is nothing in this approach that considers this particular group of subjects as representative of a larger population of subjects.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+\mathbf{y}_{1} \\
+\mathbf{y}_{2} \\
+\vdots         \\
+\mathbf{y}_{n} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+\mathbf{X}_{1} &amp; \mathbf{0} &amp; \mathbf{0} &amp; \mathbf{0} \\
+\mathbf{0} &amp; \mathbf{X}_{2} &amp; \mathbf{0} &amp; \mathbf{0} \\
+\mathbf{0} &amp; \mathbf{0} &amp; \ddots &amp; \vdots \\
+\mathbf{0} &amp; \mathbf{0} &amp; \dots &amp; \mathbf{X}_{n} \\
+\end{bmatrix}
+\begin{bmatrix}
+\boldsymbol{\beta}_{1} \\
+\boldsymbol{\beta}_{2} \\
+\vdots \\
+\boldsymbol{\beta}_{n} \\
+\end{bmatrix}
++
+\begin{bmatrix}
+\boldsymbol{\epsilon}_{1} \\
+\boldsymbol{\epsilon}_{2} \\
+\vdots \\
+\boldsymbol{\epsilon}_{n} \\
+\end{bmatrix}
+\end{split}\]</div>
+<p>where the indices correspond to individual subjects and <span class="math notranslate nohighlight">\(\mathbf{0}\)</span> refers to a sub-matrix of all zeros. As we can see, the errors in this model are just a stack of the errors from the individual single-subject models. As we know, these represent within-subject errors, because they tell us the discrepancies between the raw data and the model for each subject. The overall model variance for this big GLM is therefore the <em>average within-subject variance</em> from across the subjects. This means that any hypothesis tests from this model will use the average within-subject variance for inference. What this does not do is take the <em>between-subject</em> variance into account which, as we have established, is the most important element for making inference about a group of subjects. As such, there is nothing in this approach that considers this particular group of subjects as representative of a larger population of subjects.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In statistical jargon, if we do not treat subjects as being drawn from a larger population then the subjects represent a <em>fixed-effect</em>. As such, this approach is known as a <em>fixed-effects analysis</em>, sometimes shortened to <a class="reference external" href="https://en.wikipedia.org/wiki/Final_Fantasy_X">FFX</a>.</p>
 </div>
-<p>The long-and-short of all this is that a fixed-effects approach is not appropriate for modelling group-level fMRI data. Although it may seem somewhat harmless doing things this way, the issue is that the within-subject variance is generally much smaller than the between-subjects variance. As such, trying to use the within-subject variance for inference about a population leads to a massively inflated false positive rate. This means many spurious group results, which can be particularly dangerous if you are interested in comparing patients and controls with a view to understanding and treating clinical disorders.</p>
+<p>The conclusion from this is that a FFX approach is <em>not appropriate</em> for modelling group-level fMRI data. Although it may seem somewhat harmless doing things this way, the issue is that the within-subject variance is generally much smaller than the between-subjects variance. As such, trying to use the within-subject variance for inference about a population leads to a <em>massively inflated false positive rate</em>.</p>
 </section>
 <section id="what-use-is-a-ffx-analysis">
 <h2>What Use is a FFX Analysis?<a class="headerlink" href="#what-use-is-a-ffx-analysis" title="Link to this heading">#</a></h2>
-<p>So beyond historical curiosity, why are we discussing this approach if it is inappropriate? The first reason is to make sure that you are not tricked into using them by the SPM interface. You may recall when we specified single-subject models, SPM asks to you add a New:Subject/Session, which does give the impression that putting multiple subjects in at the 1st-level is the way to analyse multiple subjects. So it is worthwhile explaining why you generally should not do this.</p>
+<p>Beyond historical curiosity, why are we discussing this approach if it is inappropriate? The first reason is to make sure that you are not tricked into using a FFX approach by the <code class="docutils literal notranslate"><span class="pre">SPM</span></code> interface. You may recall when we specified single-subject models, <code class="docutils literal notranslate"><span class="pre">SPM</span></code> asks to you add a <code class="docutils literal notranslate"><span class="pre">New:</span> <span class="pre">Subject/Session</span></code>, which does give the impression that putting multiple subjects in at the 1st-level is the way to analyse multiple subjects. This is shown in <a class="reference internal" href="#spm-add-sub-fig"><span class="std std-numref">Fig. 6</span></a>.</p>
+<figure class="align-default" id="spm-add-sub-fig">
+<a class="reference internal image-reference" href="_images/spm-add-subject.png"><img alt="_images/spm-add-subject.png" src="_images/spm-add-subject.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Reminder that the <code class="docutils literal notranslate"><span class="pre">SPM</span></code> interface does imply that you can add multiple subjects at the 1st-level.</span><a class="headerlink" href="#spm-add-sub-fig" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="history-of-ffx-analyses">
 <h2>History of FFX Analyses<a class="headerlink" href="#history-of-ffx-analyses" title="Link to this heading">#</a></h2>
