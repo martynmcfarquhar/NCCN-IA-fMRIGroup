@@ -7,4 +7,5 @@ chapters:
 - file: 1.sources-variance
 - file: 2.fixed-effects
 - file: 3.mixed-effects
+- file: 4.summary-stats
 - file: 7.group-spm
