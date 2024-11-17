@@ -382,7 +382,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-and-practical-challenges-for-mfx">Computational and Practical Challenges for MFX</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-challenges-for-mfx">Computational Challenges for MFX</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-single-subject-variances">The Problem of Single-subject Variances</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -409,7 +412,7 @@ y_{ij}  &amp;= \mu_{j} + \epsilon_{ij} &amp;\quad \text{(Level 1)} \\
 \[
 y_{ij}  = \mu + \eta_{j} + \epsilon_{ij}
 \]</div>
-<p>Importantly, this model contains a single parameter associated with the population mean (the <span class="math notranslate nohighlight">\(\mu\)</span> term) and <em>two</em> error terms (<span class="math notranslate nohighlight">\(\eta_{j}\)</span> and <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>). Because the population means is considered a <em>constant</em> (i.e. it does not change from measurement-to-measurement), it is known as a <em>fixed-effect</em>. As such, any random variation in the value of <span class="math notranslate nohighlight">\(y_{ij}\)</span> comes from both <span class="math notranslate nohighlight">\(\eta_{j}\)</span> and <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>. As such, these terms are both <em>random variables</em>, with distributions assumed to have the following form</p>
+<p>Importantly, this model contains a single parameter associated with the population mean (the <span class="math notranslate nohighlight">\(\mu\)</span> term) and <em>two</em> error terms (<span class="math notranslate nohighlight">\(\eta_{j}\)</span> and <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>). Because the population means is considered a <em>constant</em> (i.e. it does not change from measurement-to-measurement), it is known as a <em>fixed-effect</em>. As such, any random variation in the value of <span class="math notranslate nohighlight">\(y_{ij}\)</span> must come from <span class="math notranslate nohighlight">\(\eta_{j}\)</span> and <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>. As such, these terms are both <em>random variables</em>, with distributions assumed to have the following form</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
@@ -429,11 +432,24 @@ y_{ij} \sim \mathcal{N}(\mu, \sigma^{2}_{b} + \sigma^{2}_{w_{j}}).
 \]</div>
 <p>Thus, each data-point we sample can be thought of as containing some mixture of the <em>within-subject</em> and the <em>between-subject</em> variance. The advantage of MFX models is that they can <em>separate</em> these two sources. This has several practical advantages</p>
 <ul class="simple">
-<li><p>The correct variance terms can be selected for testing different effects …</p></li>
+<li><p>The correct variance terms can be selected for testing different effects. For instance, effects associated with comparing groups need to use the <em>between-subject</em> variance, otherwise inference will be too liberal and we are more likely to detect false-positives.</p></li>
 <li><p>Subjects who are <em>noisy</em> (i.e. who have larger values of <span class="math notranslate nohighlight">\(\sigma^{2}_{w_{j}}\)</span>) can be <em>down-weighted</em> in the analysis. This means the model will automatically trust cleaner data sets and use the information from less-noisy subjects more than noisy subjects.</p></li>
 </ul>
-<section id="computational-and-practical-challenges-for-mfx">
-<h2>Computational and Practical Challenges for MFX<a class="headerlink" href="#computational-and-practical-challenges-for-mfx" title="Link to this heading">#</a></h2>
+<section id="computational-challenges-for-mfx">
+<h2>Computational Challenges for MFX<a class="headerlink" href="#computational-challenges-for-mfx" title="Link to this heading">#</a></h2>
+<p>Although a MFX analysis sounds beneficial, there are unfortunately computational challenges when it comes to using these methods with fMRI data. Collapsing all our data together to form one large model has some major requirements in terms of computing resources. Fitting that amount of data in memory at once may be possible for a small number of subjects, but it soon becomes impractical for larger sample sizes.</p>
+<p>One solution to this problem is lean on the hierarchical approach described earlier. Using this method, we estimate the GLM of each subject separately and then take contrasts of the parameter estimates from each subject through to a 2nd-level GLM analysis. These contrasts form the raw data at the 2nd-level, where we then estimate the group effects. This is shown in <a class="reference internal" href="#multilevel-fig"><span class="std std-numref">Fig. 7</span></a> from <a class="reference external" href="https://www.librarysearch.manchester.ac.uk/discovery/fulldisplay?context=L&amp;amp;vid=44MAN_INST:MU_NUI&amp;amp;search_scope=MyInst_and_CI&amp;amp;tab=Everything&amp;amp;docid=alma992975905221601631">Poldrack, Mumford and Nichols (2011)</a>.</p>
+<figure class="align-default" id="multilevel-fig">
+<a class="reference internal image-reference" href="_images/multilevel-poldrack.png"><img alt="_images/multilevel-poldrack.png" src="_images/multilevel-poldrack.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Illustration of how the multi-level framework can be implemented in two stages when working with fMRI data.</span><a class="headerlink" href="#multilevel-fig" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In this example, subjects from two different groups took part in a task looking at pictures of <code class="docutils literal notranslate"><span class="pre">faces</span></code> and pictures of <code class="docutils literal notranslate"><span class="pre">houses</span></code>. The effect of interest for each subject is the difference in activation between <code class="docutils literal notranslate"><span class="pre">faces</span></code> and <code class="docutils literal notranslate"><span class="pre">houses</span></code>. This difference is calculated for each subject and then taken through to a group-level model, where the average difference for the first group is compared to the average difference for the second group. We will explain how this 2nd-level model is structured later. For now, just try and get a sense of the general concept here.</p>
+<section id="the-problem-of-single-subject-variances">
+<h3>The Problem of Single-subject Variances<a class="headerlink" href="#the-problem-of-single-subject-variances" title="Link to this heading">#</a></h3>
+<p>The challenge for performing the analysis this way is taking the variance estimates for each subject through to the group-level. As it turns out, this is far from trivial and can be computationally very slow. Solutions to this problem have been presented by <a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/14568475/">Beckmann, Jenkinson &amp; Smith (2003)</a>, who use a complicated Bayesian approach to combine the variance estimates alongside estimating the group-level effects. This is implemented as the <code class="docutils literal notranslate"><span class="pre">FLAME</span></code> algorithm in <code class="docutils literal notranslate"><span class="pre">FSL</span></code>. Another solution was presented more recently by <a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/22245637/">Chen <em>et al.</em> (2012)</a>, adapting a method from the world of meta-analyses to achieve similar results. This is implemented as <code class="docutils literal notranslate"><span class="pre">3dMEMA</span></code> in <code class="docutils literal notranslate"><span class="pre">AFNI</span></code>. Conspicuously, <code class="docutils literal notranslate"><span class="pre">SPM</span></code> is missing from this list. Now, it is unfair to say the <code class="docutils literal notranslate"><span class="pre">SPM</span></code> cannot do MFX, because there is a tool buried inside <code class="docutils literal notranslate"><span class="pre">SPM</span></code> for this (as described by <a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/22245637/">Friston <em>et al.</em>, 2005</a>). However, this has never been presented as a major part of the <code class="docutils literal notranslate"><span class="pre">SPM</span></code> software. This is because the way that the <code class="docutils literal notranslate"><span class="pre">SPM</span></code> authors actually want you to do a group-level analyses is using a method known as the <em>summary statistics approach</em>, which will be the focus of the next section.</p>
+</section>
 </section>
 </section>
 
@@ -501,7 +517,10 @@ y_{ij} \sim \mathcal{N}(\mu, \sigma^{2}_{b} + \sigma^{2}_{w_{j}}).
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-and-practical-challenges-for-mfx">Computational and Practical Challenges for MFX</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-challenges-for-mfx">Computational Challenges for MFX</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-single-subject-variances">The Problem of Single-subject Variances</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
