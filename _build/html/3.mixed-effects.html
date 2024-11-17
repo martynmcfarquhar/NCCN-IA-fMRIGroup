@@ -359,7 +359,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -375,6 +377,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-and-practical-challenges-for-mfx">Computational and Practical Challenges for MFX</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -421,8 +431,10 @@ y_{ij} \sim \mathcal{N}(\mu, \sigma^{2}_{b} + \sigma^{2}_{w_{j}}).
 <ul class="simple">
 <li><p>The correct variance terms can be selected for testing different effects …</p></li>
 <li><p>Subjects who are <em>noisy</em> (i.e. who have larger values of <span class="math notranslate nohighlight">\(\sigma^{2}_{w_{j}}\)</span>) can be <em>down-weighted</em> in the analysis. This means the model will automatically trust cleaner data sets and use the information from less-noisy subjects more than noisy subjects.</p></li>
-<li></li>
 </ul>
+<section id="computational-and-practical-challenges-for-mfx">
+<h2>Computational and Practical Challenges for MFX<a class="headerlink" href="#computational-and-practical-challenges-for-mfx" title="Link to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -479,6 +491,21 @@ y_{ij} \sim \mathcal{N}(\mu, \sigma^{2}_{b} + \sigma^{2}_{w_{j}}).
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-and-practical-challenges-for-mfx">Computational and Practical Challenges for MFX</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
