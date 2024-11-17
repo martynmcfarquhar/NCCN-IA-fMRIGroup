@@ -379,6 +379,8 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-multiple-subjects-at-the-1st-level">Stacking Multiple Subjects at the 1st-level</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-use-is-a-ffx-analysis">What Use is a FFX Analysis?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history-of-ffx-analyses">History of FFX Analyses</a></li>
 </ul>
             </nav>
         </div>
@@ -409,10 +411,13 @@ document.write(`
 <p>In statistical jargon, if we do not treat subjects as being drawn from a larger population then the subjects represent a <em>fixed-effect</em>. As such, this approach is known as a <em>fixed-effects analysis</em>, sometimes shortened to <a class="reference external" href="https://en.wikipedia.org/wiki/Final_Fantasy_X">FFX</a>.</p>
 </div>
 <p>The long-and-short of all this is that a fixed-effects approach is not appropriate for modelling group-level fMRI data. Although it may seem somewhat harmless doing things this way, the issue is that the within-subject variance is generally much smaller than the between-subjects variance. As such, trying to use the within-subject variance for inference about a population leads to a massively inflated false positive rate. This means many spurious group results, which can be particularly dangerous if you are interested in comparing patients and controls with a view to understanding and treating clinical disorders.</p>
-<div class="admonition-what-use-is-a-fixed-effects-analysis admonition">
-<p class="admonition-title">What Use is a Fixed-effects Analysis?</p>
+</section>
+<section id="what-use-is-a-ffx-analysis">
+<h2>What Use is a FFX Analysis?<a class="headerlink" href="#what-use-is-a-ffx-analysis" title="Link to this heading">#</a></h2>
 <p>So beyond historical curiosity, why are we discussing this approach if it is inappropriate? The first reason is to make sure that you are not tricked into using them by the SPM interface. You may recall when we specified single-subject models, SPM asks to you add a New:Subject/Session, which does give the impression that putting multiple subjects in at the 1st-level is the way to analyse multiple subjects. So it is worthwhile explaining why you generally should not do this.</p>
-</div>
+</section>
+<section id="history-of-ffx-analyses">
+<h2>History of FFX Analyses<a class="headerlink" href="#history-of-ffx-analyses" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -481,6 +486,8 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-multiple-subjects-at-the-1st-level">Stacking Multiple Subjects at the 1st-level</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-use-is-a-ffx-analysis">What Use is a FFX Analysis?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history-of-ffx-analyses">History of FFX Analyses</a></li>
 </ul>
   </nav></div>
 
