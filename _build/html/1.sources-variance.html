@@ -1,8 +1,9 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -28,35 +29,33 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '1.sources-variance';</script>
@@ -400,21 +399,21 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="sources-of-variance">
-<h1>Sources of Variance<a class="headerlink" href="#sources-of-variance" title="Link to this heading">#</a></h1>
+<h1>Sources of Variance<a class="headerlink" href="#sources-of-variance" title="Permalink to this heading">#</a></h1>
 <p>Before exploring group-level models for fMRI, one of the key concepts we need to understand is <em>sources of variance</em>. When we have multiple subjects, each with multiple measurements, there are two general reasons why the data differs from one measurement to the next. One of these reasons is the <em>internal consistency</em> of a single subject, and the other reason is the <em>general consistency</em> of each subject within the group. To make this clearer, <a class="reference internal" href="#variance-sources-fig"><span class="std std-numref">Fig. 1</span></a> shows some hypothetical data from 3 subjects who were each measured 5 times. Here, we can see two distinct patterns in the data. One pattern corresponds to how close the data points are <em>within</em> each subject, while the other pattern corresponds to how close the data points are <em>between</em> each of the subjects. These sources correspond to the <em>within-subject</em> and <em>between-subjects</em> variance.</p>
 <figure class="align-default" id="variance-sources-fig">
 <a class="reference internal image-reference" href="_images/variance-sources.png"><img alt="_images/variance-sources.png" src="_images/variance-sources.png" style="width: 550px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Illustration of how multiple measurements across multiple subjects creates two sources of variance, one corresponding to variance <em>within</em> each subject and one corresponding to variance <em>between</em> the subjects.</span><a class="headerlink" href="#variance-sources-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Illustration of how multiple measurements across multiple subjects creates two sources of variance, one corresponding to variance <em>within</em> each subject and one corresponding to variance <em>between</em> the subjects.</span><a class="headerlink" href="#variance-sources-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="within-subject-variance">
-<h2>Within-subject Variance<a class="headerlink" href="#within-subject-variance" title="Link to this heading">#</a></h2>
+<h2>Within-subject Variance<a class="headerlink" href="#within-subject-variance" title="Permalink to this heading">#</a></h2>
 <p>The <em>within-subject</em> variance corresponds to the spread of data points around each subject’s mean. This is illustrated in <a class="reference internal" href="#ws-variance-fig"><span class="std std-numref">Fig. 2</span></a>, where the orange lines represent the individual subject means (<span class="math notranslate nohighlight">\(\mu_1\)</span>, <span class="math notranslate nohighlight">\(\mu_2\)</span>, <span class="math notranslate nohighlight">\(\mu_3\)</span>) and the spread is indicated by the dashed vertical lines. For each subject, we can therefore calculate a variance value that captures their own personal degree of error. This tells us how <em>internally consistent</em> that subject is. The smaller the errors, the more consistent a subject is across the repeated measurements.</p>
 <figure class="align-default" id="ws-variance-fig">
 <a class="reference internal image-reference" href="_images/ws-variance.png"><img alt="_images/ws-variance.png" src="_images/ws-variance.png" style="width: 550px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Illustration of the <em>within-subject</em> variance for 3 subjects each with 5 repeated measurements.</span><a class="headerlink" href="#ws-variance-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Illustration of the <em>within-subject</em> variance for 3 subjects each with 5 repeated measurements.</span><a class="headerlink" href="#ws-variance-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>From the perspective of fMRI, our repeated measurements for each subject are the time-series values. We can therefore think of the 5 measurements shown in <a class="reference internal" href="#ws-variance-fig"><span class="std std-numref">Fig. 2</span></a> as representative of the 200-odd measurements that make up an fMRI time-series. The time-series model is not usually just a simple mean, nevertheless, we still get errors in terms of the discrepancy between the predicted values of the model and the raw data. From these errors, we can calculate an estimate of the within-subject variance. As such, the <em>within-subject</em> variance for fMRI is captured by the variance calculated from the single-subject GLM analysis.</p>
@@ -424,12 +423,12 @@ document.write(`
 </div>
 </section>
 <section id="between-subject-variance">
-<h2>Between-subject Variance<a class="headerlink" href="#between-subject-variance" title="Link to this heading">#</a></h2>
+<h2>Between-subject Variance<a class="headerlink" href="#between-subject-variance" title="Permalink to this heading">#</a></h2>
 <p>The <em>between-subjects</em> variance corresponds to the spread of the subject means around a group mean. This is illustrated in <a class="reference internal" href="#bs-variance-fig"><span class="std std-numref">Fig. 3</span></a>, where the orange lines represent the subject means (as before) and the green line represents the group mean (the average of all the subject means). This time, the errors correspond to the vertical distances between each subject’s mean and the group mean. From this, we can calculate a variance that captures how consistent the subjects are as a group. The smaller this value, the closer the subject means are to each other and the more consistent the group is.</p>
 <figure class="align-default" id="bs-variance-fig">
 <a class="reference internal image-reference" href="_images/bs-variance.png"><img alt="_images/bs-variance.png" src="_images/bs-variance.png" style="width: 550px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of the <em>between-subject</em> variance for 3 subjects.</span><a class="headerlink" href="#bs-variance-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of the <em>between-subject</em> variance for 3 subjects.</span><a class="headerlink" href="#bs-variance-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The concept of <em>between-subjects</em> variance is important for allowing us to generalise from our current sample to the wider population. This is because this value is an estimate of how variable the population of <em>all</em> subjects is. When we think about sampling individual subjects from a population, the degree to which each subject differs from another corresponds to the variance of the population distribution. As such, if we want to make inference about the population of subjects, we need to use the <em>between-subjects</em> variance to do so.</p>
@@ -439,16 +438,16 @@ document.write(`
 </div>
 </section>
 <section id="the-repeated-measures-sampling-model">
-<h2>The Repeated Measures Sampling Model<a class="headerlink" href="#the-repeated-measures-sampling-model" title="Link to this heading">#</a></h2>
+<h2>The Repeated Measures Sampling Model<a class="headerlink" href="#the-repeated-measures-sampling-model" title="Permalink to this heading">#</a></h2>
 <p>The concepts of <em>within-subject</em> and <em>between-subjects</em> variance play into our conceptualisation of the data generating process. If we imagine the simple case of being interested in only a single population, we only have to think of a single population distribution. This distribution has a mean and a variance that we want to estimate. This variance is the <em>between-subjects</em> variance. From this distribution, we sample individual subjects. As this is a distribution of averages we are effectively sampling a random assortment of subject means. Sampling multiple values from each subject represents another level of sampling, where we are drawing values from the individual subject distributions. These are parameterised using the individual subject means and individual subject variances. These individual subject variances are the <em>within-subject variances</em>, as illustrated in <a class="reference internal" href="#sampling-model-fig"><span class="std std-numref">Fig. 4</span></a>.</p>
 <figure class="align-default" id="sampling-model-fig">
 <a class="reference internal image-reference" href="_images/sampling-model.png"><img alt="_images/sampling-model.png" src="_images/sampling-model.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of the repeated measurements sampling model.</span><a class="headerlink" href="#sampling-model-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of the repeated measurements sampling model.</span><a class="headerlink" href="#sampling-model-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="the-hierarchical-perspective">
-<h3>The Hierarchical Perspective<a class="headerlink" href="#the-hierarchical-perspective" title="Link to this heading">#</a></h3>
+<h3>The Hierarchical Perspective<a class="headerlink" href="#the-hierarchical-perspective" title="Permalink to this heading">#</a></h3>
 <p>We can formalise the sampling model illustrated in <a class="reference internal" href="#sampling-model-fig"><span class="std std-numref">Fig. 4</span></a> as a <em>hierarchical linear model</em>, also known as a <em>multilevel linear model</em>. In this format, we can write, for subject <span class="math notranslate nohighlight">\(j\)</span></p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
