@@ -1,8 +1,9 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -28,35 +29,33 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '2.fixed-effects';</script>
@@ -396,15 +395,15 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="fixed-effects-the-wrong-way">
-<h1>Fixed-effects: The Wrong Way<a class="headerlink" href="#fixed-effects-the-wrong-way" title="Link to this heading">#</a></h1>
+<h1>Fixed-effects: The Wrong Way<a class="headerlink" href="#fixed-effects-the-wrong-way" title="Permalink to this heading">#</a></h1>
 <p>As described in the last section, if our interest is only on a single-subject then the variance we need to take into account is the <em>within-subject</em>. To put this into context, when we fit a single-subject GLM using SPM, the variance calculated from that model <em>is</em> the within-subject variance. This is because it is based on the errors of the GLM, which represent discrepancies between the measured time-series and the predicted time-series for that individual subject. This is the same as considering the spread of data around the subject’s own mean. Our hypothesis tests are then built using test statistics that use the within-subject variance, and so all our inference is based on the internal consistency of that one subject. This is perfectly valid, and reflects the fact that inference at the 1st-level is only relevant for that one subject and nobody else.</p>
 <section id="stacking-multiple-subjects-at-the-1st-level">
-<h2>Stacking Multiple Subjects at the 1st-level<a class="headerlink" href="#stacking-multiple-subjects-at-the-1st-level" title="Link to this heading">#</a></h2>
+<h2>Stacking Multiple Subjects at the 1st-level<a class="headerlink" href="#stacking-multiple-subjects-at-the-1st-level" title="Permalink to this heading">#</a></h2>
 <p>Early approaches to analysing fMRI data from multiple subjects involved expanding upon inference at the 1st-level by concatenating the data from multiple subjects. As an example, the design matrix shown in <a class="reference internal" href="#ffx-glm-fig"><span class="std std-numref">Fig. 5</span></a> involves stacking the individual 1st-level models for 10 subjects, and then using a contrast to average across the subjects to test for group effects.</p>
 <figure class="align-default" id="ffx-glm-fig">
 <a class="reference internal image-reference" href="_images/fixed-effects-glm.jpg"><img alt="_images/fixed-effects-glm.jpg" src="_images/fixed-effects-glm.jpg" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Example of a fixed-effects analysis, conducted by stacking all the data and then modelling each subject as an individual block within a single large design matrix.</span><a class="headerlink" href="#ffx-glm-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Example of a fixed-effects analysis, conducted by stacking all the data and then modelling each subject as an individual block within a single large design matrix.</span><a class="headerlink" href="#ffx-glm-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Although this may initially seem reasonable, there are some major problems with this approach. To see what they are, consider writing this model in terms of the GLM</p>
@@ -448,12 +447,12 @@ document.write(`
 </div>
 </section>
 <section id="what-use-is-a-ffx-analysis">
-<h2>What Use is a FFX Analysis?<a class="headerlink" href="#what-use-is-a-ffx-analysis" title="Link to this heading">#</a></h2>
+<h2>What Use is a FFX Analysis?<a class="headerlink" href="#what-use-is-a-ffx-analysis" title="Permalink to this heading">#</a></h2>
 <p>If we now know that a FFX analysis is inappropriate, why are we discussing it? The first reason is to make sure that you are not tricked into using a FFX approach by the <code class="docutils literal notranslate"><span class="pre">SPM</span></code> interface. You may recall when we specified single-subject models, <code class="docutils literal notranslate"><span class="pre">SPM</span></code> asks to you add a <code class="docutils literal notranslate"><span class="pre">New:</span> <span class="pre">Subject/Session</span></code>, which does give the impression that putting multiple subjects in at the 1st-level is the way to analyse multiple subjects. This is shown in <a class="reference internal" href="#spm-add-sub-fig"><span class="std std-numref">Fig. 6</span></a>.</p>
 <figure class="align-default" id="spm-add-sub-fig">
 <a class="reference internal image-reference" href="_images/spm-add-subject.png"><img alt="_images/spm-add-subject.png" src="_images/spm-add-subject.png" style="width: 440px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Reminder that the <code class="docutils literal notranslate"><span class="pre">SPM</span></code> interface does imply that you can add multiple subjects at the 1st-level.</span><a class="headerlink" href="#spm-add-sub-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Reminder that the <code class="docutils literal notranslate"><span class="pre">SPM</span></code> interface does imply that you can add multiple subjects at the 1st-level.</span><a class="headerlink" href="#spm-add-sub-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The second reason is that there is <em>sometimes</em> good reason for using FFX. If you find yourself in a situation where you only want to reach conclusions about a single set of subjects, then a FFX analysis is entirely appropriate. Case studies are not entirely uncommon, particularly if you are studying individuals with very specific deficits or unique pathologies. In addition, if you have multiple sessions from the same subject, then you can treat this the same way as a FFX analysis by stacking the sessions into the same design matrix. Because this is still inference on the same subject, pooling the within-subject variance across the multiple sessions is a perfectly justifiable thing to do. So, there are times when FFX are appropriate, even if this is not the methods we are going to use for most of our analyses.</p>
