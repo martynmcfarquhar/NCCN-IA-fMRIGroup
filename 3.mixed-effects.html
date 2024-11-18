@@ -422,10 +422,11 @@ y_{ij}  = \mu + \eta_{j} + \epsilon_{ij}
 <p>As such, these error terms capture both the <em>between-subject</em> and <em>within-subject</em> variances. Because they are random variables, they are termed <em>random-effects</em>. Because our model now contains both kinds of effects, it is known as a <em>mixed-effects</em> (MFX) model.</p>
 <div class="dropdown admonition">
 <p class="admonition-title">Advanced: More About the MFX Model Terms</p>
-<p>To understand the MFX model terms in more detail, recall the diagram of the between-subjects and within-subject variance in <a class="reference internal" href="1.sources-variance.html#variance-sources-fig"><span class="std std-numref">Fig. 1</span></a>. The between-subject variance is quantified as the average vertical distance between the group mean and the subject mean, whereas the within-subject variance is quantified as the vertical distance between the subject mean and the raw data. These vertical distances are <em>exactly</em> what is being captured by the random-effects <span class="math notranslate nohighlight">\(\eta_{j}\)</span> and <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>. The <span class="math notranslate nohighlight">\(eta_{j}\)</span> term is the difference between the group mean and the subject mean. As such, the mean for subject <span class="math notranslate nohighlight">\(j\)</span> is given by</p>
+<p>To understand the MFX model terms in more detail, recall the diagram of the between-subjects and within-subject variance in <a class="reference internal" href="1.sources-variance.html#variance-sources-fig"><span class="std std-numref">Fig. 1</span></a>. The between-subject variance is quantified as the average vertical distance between the group mean and the subject mean, whereas the within-subject variance is quantified as the vertical distance between the subject mean and the raw data. These vertical distances are <em>exactly</em> what is being captured by the random-effects <span class="math notranslate nohighlight">\(\eta_{j}\)</span> and <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>.</p>
+<p>The <span class="math notranslate nohighlight">\(eta_{j}\)</span> term is the difference between the group mean and the subject mean. As such, the mean for subject <span class="math notranslate nohighlight">\(j\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-\bar{y_{.j}} = \mu + \eta_{j}.
+\bar{y}_{.j} = \mu + \eta_{j}.
 \]</div>
 <p>The <span class="math notranslate nohighlight">\(\eta_{j}\)</span> values are therefore exactly the same as the residuals from a regular GLM, except that they are defined at the level of each individual subject. In fact, if there were no repeated measurements then <span class="math notranslate nohighlight">\(\eta_{j}\)</span> would be <em>exactly the same</em> as the residuals from the GLM. Thus, in the MFX equation above, <span class="math notranslate nohighlight">\(\mu\)</span> is a constant of the group and <span class="math notranslate nohighlight">\(\eta_{j}\)</span> is a subject-specific deflections that indicated how far each subject is from the group mean. Because the subjects are a random sample, it therefore makes sense that the subject-specific deflections are also random and thus <span class="math notranslate nohighlight">\(\eta_{j}\)</span> is a <em>random-effect</em>.</p>
 <p>From this, we can infer that <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> must be another error term, this time indicating the distance between the subject mean and the raw data. If we again think about <span class="math notranslate nohighlight">\(\mu + \eta_{j}\)</span> giving the subject-specific mean, then the model can be thought-of as</p>
@@ -433,9 +434,17 @@ y_{ij}  = \mu + \eta_{j} + \epsilon_{ij}
 \[\begin{split}
 \begin{align}
 y_{ij} &amp;= \mu + \eta_{j} + \epsilon_{ij} \\
-       &amp;= \bar{y_{.j}} + \epsilon_{ij}.
+       &amp;= \bar{y}_{.j} + \epsilon_{ij}.
 \end{align}
 \end{split}\]</div>
+<p>Again, these are deflections that represent variations in the raw data that are not associated with the fact that we have different subjects, rather these represent sampling errors, mistakes or any other factor that would cause a subject to not respond <em>identically</em> every single time. Much like the <span class="math notranslate nohighlight">\(\eta_{j}\)</span>, these are akin to the residuals of a regular GLM analysis. Because each repeat within a repeated-measurements design is effectively a random draw from a probability distribution, then it makes sense that these deflections are also random and this <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> is also a <em>random-effect</em>.</p>
+<p><a class="reference external" href="https://www.taylorfrancis.com/books/mono/10.1201/9781315137421/analysis-repeated-measures-martin-crowder-david-hand">Crowder &amp; Hand (1990)</a> described the terms in this model in a more poetic fashion that may be useful for understanding. They describe the terms as</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mu\)</span>: “An immutable constant of the universe”</p></li>
+<li><p><span class="math notranslate nohighlight">\(\eta_{j}\)</span>: “A lasting characteristic of the individual”</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> : “A fleeting aberration of the moment”</p></li>
+</ul>
+<p>Because <span class="math notranslate nohighlight">\(\eta_{j}\)</span> and <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
