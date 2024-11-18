@@ -423,7 +423,7 @@ y_{ij}  = \mu + \eta_{j} + \epsilon_{ij}
 <div class="dropdown admonition">
 <p class="admonition-title">Advanced: More About the MFX Model Terms</p>
 <p>To understand the MFX model terms in more detail, recall the diagram of the between-subjects and within-subject variance in <a class="reference internal" href="1.sources-variance.html#variance-sources-fig"><span class="std std-numref">Fig. 1</span></a>. The between-subject variance is quantified as the average vertical distance between the group mean and the subject mean, whereas the within-subject variance is quantified as the vertical distance between the subject mean and the raw data. These vertical distances are <em>exactly</em> what is being captured by the random-effects <span class="math notranslate nohighlight">\(\eta_{j}\)</span> and <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>.</p>
-<p>The <span class="math notranslate nohighlight">\(eta_{j}\)</span> term is the difference between the group mean and the subject mean. As such, the mean for subject <span class="math notranslate nohighlight">\(j\)</span> is given by</p>
+<p>The <span class="math notranslate nohighlight">\(\eta_{j}\)</span> term is the difference between the group mean and the subject mean. As such, the mean for subject <span class="math notranslate nohighlight">\(j\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
 \bar{y}_{.j} = \mu + \eta_{j}.
@@ -447,9 +447,9 @@ y_{ij} &amp;= \mu + \eta_{j} + \epsilon_{ij} \\
 <p>Because <span class="math notranslate nohighlight">\(\eta_{j}\)</span> and <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> are effectively two error terms, they can be used to calculate <em>variance</em>, in the same way that the errors of the GLM can be used to calculate variance. Remembering that the basic definition of variance is</p>
 <div class="math notranslate nohighlight">
 \[
-\sigma^{2} = frac{\sum{(y_{i} - \bar{y})^{2}}}{n - 1},
+\sigma^{2} = \frac{\sum{(y_{i} - \bar{y})^{2}}}{n - 1},
 \]</div>
-<p>we only need to recognise that <span class="math notranslate nohighlight">\(\bar{y}\)</span> is simply the mean of the distribution of interest. As such, when calculating <span class="math notranslate nohighlight">\(\sigma^{2}_{b}\)</span> we want the numerator to be the difference between the subject means and the group means (i.e. <span class="math notranslate nohighlight">\(\eta_{j}\)</span>). Thus the average sum-of-squared <span class="math notranslate nohighlight">\(\eta_{j}\)</span> terms gives us the estimate of the <em>between-subjects</em> variance. Similarly, if the numerator is the difference between the subject means and the raw data (i.e. <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>), then the average sum-of-squares gives us an estimate of the <em>within-subject</em> variance.</p>
+<p>we only need to recognise that <span class="math notranslate nohighlight">\(y_{i}\)</span> represents some data and <span class="math notranslate nohighlight">\(\bar{y}\)</span> is simply the mean of the distribution of that data. As such, when calculating <span class="math notranslate nohighlight">\(\sigma^{2}_{b}\)</span> we want the numerator to be the difference between the subject means and the group means, which we know is captured by <span class="math notranslate nohighlight">\(\eta_{j}\)</span>. Thus the average sum-of-squared <span class="math notranslate nohighlight">\(\eta_{j}\)</span> terms gives us the estimate of the <em>between-subjects</em> variance. Similarly, if the numerator is the difference between the subject means and the raw data (i.e. <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>), then the average sum-of-squares gives us an estimate of the <em>within-subject</em> variance.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
