@@ -406,6 +406,41 @@ document.write(`
 <p>We are going to see many more examples of group-level models as part of <em>Experimental Design &amp; Optimisation</em>. However, at this stage, it is useful to give a sense of how we use the GLM to analyse our per-subject contrast images. Luckily, the group-level is much more straightforward because we do not have to deal with issues such as the shape of the BOLD signal, the nature of time-series data, or low-frequency scanner noise. As such, group-level GLMs are generally much simpler than single-subject GLMs.</p>
 <section id="indicator-variables-for-groups">
 <h2>Indicator Variables for Groups<a class="headerlink" href="#indicator-variables-for-groups" title="Permalink to this heading">#</a></h2>
+<p>The most basic form of 2nd-level model contains indicator variables for modelling different groups of subjects. For instance, if we had 3 subjects from one group and 3 from another, our 2nd-level GLM (for a single voxel) would be</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+y_{1} \\
+y_{2} \\
+y_{3} \\
+y_{4} \\
+y_{5} \\
+y_{6} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 &amp; 0 \\
+1 &amp; 0 \\
+1 &amp; 0 \\
+0 &amp; 1 \\
+0 &amp; 1 \\
+0 &amp; 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+\mu_{1} \\
+\mu_{2} \\
+\end{bmatrix}
++
+\begin{bmatrix}
+\epsilon_{1} \\
+\epsilon_{2} \\
+\epsilon_{3} \\
+\epsilon_{4} \\
+\epsilon_{5} \\
+\epsilon_{6} \\
+\end{bmatrix}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(y_1\)</span> is the contrast value from the 1st-level for subject 1, <span class="math notranslate nohighlight">\(y_2\)</span> is the contrast value from the 1st-level for subject 2 and so on. The design matrix contains no constant, with only a single indicator variable coding group 1 and a single indicator variable coding group 2. This lack of a constant is due to SPM using a <em>cell means</em> approach to modelling groups at the 2nd-level. The main benefit of this method is that the GLM parameters become the <em>means of the groups</em>. In the notation above, the parameters have been renamed to <span class="math notranslate nohighlight">\(\mu_1\)</span> and <span class="math notranslate nohighlight">\(\mu_2\)</span> to make this clearer. The parameter estimates for this model at this voxel will then be the average contrast value for group 1 and the average contrast value for group 2. We can then compare the group means at every voxel using the hypothesis testing framework already established.</p>
 </section>
 <section id="model-estimation">
 <h2>Model Estimation<a class="headerlink" href="#model-estimation" title="Permalink to this heading">#</a></h2>
