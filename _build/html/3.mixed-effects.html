@@ -451,8 +451,8 @@ y_{ij} &amp;= \mu + \eta_{j} + \epsilon_{ij} \\
 \]</div>
 <p>we only need to recognise that <span class="math notranslate nohighlight">\(y_{i}\)</span> represents some data and <span class="math notranslate nohighlight">\(\bar{y}\)</span> is simply the mean of the distribution of that data. As such, when calculating <span class="math notranslate nohighlight">\(\sigma^{2}_{b}\)</span> we want the numerator to be the difference between the subject means and the group means, which we know is captured by <span class="math notranslate nohighlight">\(\eta_{j}\)</span>. Thus the average sum-of-squared <span class="math notranslate nohighlight">\(\eta_{j}\)</span> terms gives us the estimate of the <em>between-subjects</em> variance. Similarly, if the numerator is the difference between the subject means and the raw data (i.e. <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>), then the average sum-of-squares gives us an estimate of the <em>within-subject</em> variance.</p>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>In the world of fMRI, MFX analyses are often referred to as <em>random-effects</em> (RFX) models. This corresponds to the fact that we are treating subjects as a random draw from a population. The subjects are therefore seen as <em>random</em> rather than <em>fixed</em>. It is <em>not</em> implying that the model only contains random effects, though this would be the interpretation if this term was being used in the usual statistical sense. Just remember that RFX and MFX are used somewhat interchangeably in fMRI, just to make sure everyone is as confused as possible.</p>
 </div>
 <p>Importantly, collapsing the two levels together means that our overall probability model for an individual subject’s data is given by</p>
