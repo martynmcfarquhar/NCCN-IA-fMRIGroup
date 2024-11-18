@@ -8,4 +8,5 @@ chapters:
 - file: 2.fixed-effects
 - file: 3.mixed-effects
 - file: 4.summary-stats
+- file: 5.building-models
 - file: 7.group-spm

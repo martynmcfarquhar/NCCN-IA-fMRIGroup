@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Sources of Variance &#8212; fMRI Group-level Statistical Modelling</title>
+    <title>Building Group-level Models &#8212; fMRI Group-level Statistical Modelling</title>
   
   
   
@@ -56,13 +56,11 @@
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '1.sources-variance';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '5.building-models';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Fixed-effects: The Wrong Way" href="2.fixed-effects.html" />
-    <link rel="prev" title="Introduction" href="0.intro.html" />
+    <link rel="next" title="Group-level Modelling in SPM" href="7.group-spm.html" />
+    <link rel="prev" title="Summary Statistics: The SPM Way" href="4.summary-stats.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,11 +179,11 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Sources of Variance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.sources-variance.html">Sources of Variance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.fixed-effects.html">Fixed-effects: The Wrong Way</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.mixed-effects.html">Mixed-effects: The Best Way</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.summary-stats.html">Summary Statistics: The SPM Way</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.building-models.html">Building Group-level Models</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Building Group-level Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="7.group-spm.html">Group-level Modelling in SPM</a></li>
 </ul>
 
@@ -258,7 +256,7 @@
       
       
       
-      <li><a href="https://github.com/martynmcfarquhar/NCCN-IA-fMRIGroup/issues/new?title=Issue%20on%20page%20%2F1.sources-variance.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/martynmcfarquhar/NCCN-IA-fMRIGroup/issues/new?title=Issue%20on%20page%20%2F5.building-models.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -288,7 +286,7 @@
       
       
       
-      <li><a href="_sources/1.sources-variance.ipynb" target="_blank"
+      <li><a href="_sources/5.building-models.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -372,7 +370,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Sources of Variance</h1>
+    <h1>Building Group-level Models</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -382,10 +380,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#within-subject-variance">Within-subject Variance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#between-subject-variance">Between-subject Variance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-repeated-measures-sampling-model">The Repeated Measures Sampling Model</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hierarchical-perspective">The Hierarchical Perspective</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indicator-variables-for-groups">Indicator Variables for Groups</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-estimation">Model Estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-interpretation">Parameter Interpretation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference">Inference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-tailed-tests">One-tailed Tests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-tailed-tests">Two-tailed Tests</a></li>
 </ul>
 </li>
 </ul>
@@ -399,82 +399,24 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="sources-of-variance">
-<h1>Sources of Variance<a class="headerlink" href="#sources-of-variance" title="Permalink to this heading">#</a></h1>
-<p>Before exploring group-level models for fMRI, one of the key concepts we need to understand is <em>sources of variance</em>. When we have multiple subjects, each with multiple measurements, there are two general reasons why the data differs from one measurement to the next. One of these reasons is the <em>internal consistency</em> of a single subject, and the other reason is the <em>general consistency</em> of each subject within the group. To make this clearer, <a class="reference internal" href="#variance-sources-fig"><span class="std std-numref">Fig. 1</span></a> shows some hypothetical data from 3 subjects who were each measured 5 times. Here, we can see two distinct patterns in the data. One pattern corresponds to how close the data points are <em>within</em> each subject, while the other pattern corresponds to how close the data points are <em>between</em> each of the subjects. These sources correspond to the <em>within-subject</em> and <em>between-subjects</em> variance.</p>
-<figure class="align-default" id="variance-sources-fig">
-<a class="reference internal image-reference" href="_images/variance-sources.png"><img alt="_images/variance-sources.png" src="_images/variance-sources.png" style="width: 550px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Illustration of how multiple measurements across multiple subjects creates two sources of variance, one corresponding to variance <em>within</em> each subject and one corresponding to variance <em>between</em> the subjects.</span><a class="headerlink" href="#variance-sources-fig" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<section id="within-subject-variance">
-<h2>Within-subject Variance<a class="headerlink" href="#within-subject-variance" title="Permalink to this heading">#</a></h2>
-<p>The <em>within-subject</em> variance corresponds to the spread of data points around each subject’s mean. This is illustrated in <a class="reference internal" href="#ws-variance-fig"><span class="std std-numref">Fig. 2</span></a>, where the orange lines represent the individual subject means (<span class="math notranslate nohighlight">\(\mu_1\)</span>, <span class="math notranslate nohighlight">\(\mu_2\)</span>, <span class="math notranslate nohighlight">\(\mu_3\)</span>) and the spread is indicated by the dashed vertical lines. For each subject, we can therefore calculate a variance value that captures their own personal degree of error. This tells us how <em>internally consistent</em> that subject is. The smaller the errors, the more consistent a subject is across the repeated measurements.</p>
-<figure class="align-default" id="ws-variance-fig">
-<a class="reference internal image-reference" href="_images/ws-variance.png"><img alt="_images/ws-variance.png" src="_images/ws-variance.png" style="width: 550px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Illustration of the <em>within-subject</em> variance for 3 subjects each with 5 repeated measurements.</span><a class="headerlink" href="#ws-variance-fig" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p>From the perspective of fMRI, our repeated measurements for each subject are the time-series values. We can therefore think of the 5 measurements shown in <a class="reference internal" href="#ws-variance-fig"><span class="std std-numref">Fig. 2</span></a> as representative of the 200-odd measurements that make up an fMRI time-series. The time-series model is not usually just a simple mean, nevertheless, we still get errors in terms of the discrepancy between the predicted values of the model and the raw data. From these errors, we can calculate an estimate of the within-subject variance. As such, the <em>within-subject</em> variance for fMRI is captured by the variance calculated from the single-subject GLM analysis.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The within-subject variance captures the consistency of a single subject who was measured multiple times. It tells us, on average, how much the raw data deviates from the predicted values of the model. In the context of <code class="docutils literal notranslate"><span class="pre">SPM</span></code>, this is the <code class="docutils literal notranslate"><span class="pre">ResMS.nii</span></code> image saved from each single-subject GLM analysis.</p>
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="building-group-level-models">
+<h1>Building Group-level Models<a class="headerlink" href="#building-group-level-models" title="Permalink to this heading">#</a></h1>
+<section id="indicator-variables-for-groups">
+<h2>Indicator Variables for Groups<a class="headerlink" href="#indicator-variables-for-groups" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="between-subject-variance">
-<h2>Between-subject Variance<a class="headerlink" href="#between-subject-variance" title="Permalink to this heading">#</a></h2>
-<p>The <em>between-subjects</em> variance corresponds to the spread of the subject means around a group mean. This is illustrated in <a class="reference internal" href="#bs-variance-fig"><span class="std std-numref">Fig. 3</span></a>, where the orange lines represent the subject means (as before) and the green line represents the group mean (the average of all the subject means). This time, the errors correspond to the vertical distances between each subject’s mean and the group mean. From this, we can calculate a variance that captures how consistent the subjects are as a group. The smaller this value, the closer the subject means are to each other and the more consistent the group is.</p>
-<figure class="align-default" id="bs-variance-fig">
-<a class="reference internal image-reference" href="_images/bs-variance.png"><img alt="_images/bs-variance.png" src="_images/bs-variance.png" style="width: 550px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of the <em>between-subject</em> variance for 3 subjects.</span><a class="headerlink" href="#bs-variance-fig" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p>The concept of <em>between-subjects</em> variance is important for allowing us to generalise from our current sample to the wider population. This is because this value is an estimate of how variable the population of <em>all</em> subjects is. When we think about sampling individual subjects from a population, the degree to which each subject differs from another corresponds to the variance of the population distribution. As such, if we want to make inference about the population of subjects, we need to use the <em>between-subjects</em> variance to do so.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The between-subjects variance captures the consistency of a group of subjects. It tells us, on average, how much each individual subject deviates from the group average. In the context of <code class="docutils literal notranslate"><span class="pre">SPM</span></code>, this value is calculated using a 2nd-level GLM analysis, as we will see later in this lesson.</p>
-</div>
+<section id="model-estimation">
+<h2>Model Estimation<a class="headerlink" href="#model-estimation" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="the-repeated-measures-sampling-model">
-<h2>The Repeated Measures Sampling Model<a class="headerlink" href="#the-repeated-measures-sampling-model" title="Permalink to this heading">#</a></h2>
-<p>The concepts of <em>within-subject</em> and <em>between-subjects</em> variance play into our conceptualisation of the data generating process. If we imagine the simple case of being interested in only a single population, we only have to think of a single population distribution. This distribution has a mean and a variance that we want to estimate. This variance is the <em>between-subjects</em> variance. From this distribution, we sample individual subjects. As this is a distribution of averages we are effectively sampling a random assortment of subject means. Sampling multiple values from each subject represents another level of sampling, where we are drawing values from the individual subject distributions. These are parameterised using the individual subject means and individual subject variances. These individual subject variances are the <em>within-subject variances</em>, as illustrated in <a class="reference internal" href="#sampling-model-fig"><span class="std std-numref">Fig. 4</span></a>.</p>
-<figure class="align-default" id="sampling-model-fig">
-<a class="reference internal image-reference" href="_images/sampling-model.png"><img alt="_images/sampling-model.png" src="_images/sampling-model.png" style="width: 800px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of the repeated measurements sampling model.</span><a class="headerlink" href="#sampling-model-fig" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<section id="the-hierarchical-perspective">
-<h3>The Hierarchical Perspective<a class="headerlink" href="#the-hierarchical-perspective" title="Permalink to this heading">#</a></h3>
-<p>We can formalise the sampling model illustrated in <a class="reference internal" href="#sampling-model-fig"><span class="std std-numref">Fig. 4</span></a> as a <em>hierarchical linear model</em>, also known as a <em>multilevel linear model</em>. In this format, we can write, for subject <span class="math notranslate nohighlight">\(j\)</span></p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align}
-y_{ij}  &amp;= \mu_{j} + \epsilon_{ij} &amp;\quad \text{(Level 1)} \\
-\mu_{j} &amp;= \mu + \eta_{j} &amp;\quad \text{(Level 2)} \\
-\end{align}
-\end{split}\]</div>
-<p>In this form, the repeated measurements for subject <span class="math notranslate nohighlight">\(j\)</span> can be modelled in terms of each subject’s individual mean <span class="math notranslate nohighlight">\((\mu_{j})\)</span>. This forms the 1st-level of the model. The individual subject means can then be modelled in terms of the population mean <span class="math notranslate nohighlight">\((\mu)\)</span>. This forms the 2nd-level of the model.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The terms “1st-level” analysis” and “2nd-level” analysis in <code class="docutils literal notranslate"><span class="pre">SPM</span></code> correspond to the hierarchical sampling perspective. Level 1 is each individual subject and Level 2 is a group of subjects.</p>
-</div>
-<p>Importantly, we can connect this hierarchical view with the illustration is <a class="reference internal" href="#sampling-model-fig"><span class="std std-numref">Fig. 4</span></a> by writing these equations in terms of distributions</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align}
-y_{ij}  &amp;\sim \mathcal{N}(\mu_{j}, \sigma^{2}_{w_{j}}) &amp;\quad \text{(Level 1)} \\
-\mu_{j} &amp;\sim \mathcal{N}(\mu, \sigma^{2}_{b}) &amp;\quad \text{(Level 2)} \\
-\end{align}
-\end{split}\]</div>
-<p>The important consequence of all of this is that if we were only interested in a one subject (for instance, a case study) then the population distribution is irrelevant. In which case, we only need the <em>within-subject</em> variance. This would also be true if we had a set of subjects where we were only interested in those specific subjects and no one else. Again, the population distribution does not matter because we do not care about the population, only those subjects (those subjects <em>are</em> the population). However, if we want to make generalisations to the whole population from a sample, then we need to take the between-subjects variance into account.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The connection between all this information and group-level modelling of fMRI data will not be clear at this point. However, we will see how this distinction between different sources of variance is key to understanding the approaches that have been taken over the years. When you have been through this lesson once, it might be a good idea to re-read this section with the bigger picture in mind.</p>
-</div>
+<section id="parameter-interpretation">
+<h2>Parameter Interpretation<a class="headerlink" href="#parameter-interpretation" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="inference">
+<h2>Inference<a class="headerlink" href="#inference" title="Permalink to this heading">#</a></h2>
+<section id="one-tailed-tests">
+<h3>One-tailed Tests<a class="headerlink" href="#one-tailed-tests" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="two-tailed-tests">
+<h3>Two-tailed Tests<a class="headerlink" href="#two-tailed-tests" title="Permalink to this heading">#</a></h3>
 </section>
 </section>
 </section>
@@ -510,20 +452,20 @@ y_{ij}  &amp;\sim \mathcal{N}(\mu_{j}, \sigma^{2}_{w_{j}}) &amp;\quad \text{(Lev
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="0.intro.html"
+       href="4.summary-stats.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction</p>
+        <p class="prev-next-title">Summary Statistics: The SPM Way</p>
       </div>
     </a>
     <a class="right-next"
-       href="2.fixed-effects.html"
+       href="7.group-spm.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Fixed-effects: The Wrong Way</p>
+        <p class="prev-next-title">Group-level Modelling in SPM</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -543,10 +485,12 @@ y_{ij}  &amp;\sim \mathcal{N}(\mu_{j}, \sigma^{2}_{w_{j}}) &amp;\quad \text{(Lev
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#within-subject-variance">Within-subject Variance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#between-subject-variance">Between-subject Variance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-repeated-measures-sampling-model">The Repeated Measures Sampling Model</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hierarchical-perspective">The Hierarchical Perspective</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indicator-variables-for-groups">Indicator Variables for Groups</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-estimation">Model Estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-interpretation">Parameter Interpretation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference">Inference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-tailed-tests">One-tailed Tests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-tailed-tests">Two-tailed Tests</a></li>
 </ul>
 </li>
 </ul>
