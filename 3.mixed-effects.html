@@ -438,13 +438,18 @@ y_{ij} &amp;= \mu + \eta_{j} + \epsilon_{ij} \\
 \end{align}
 \end{split}\]</div>
 <p>Again, these are deflections that represent variations in the raw data that are not associated with the fact that we have different subjects, rather these represent sampling errors, mistakes or any other factor that would cause a subject to not respond <em>identically</em> every single time. Much like the <span class="math notranslate nohighlight">\(\eta_{j}\)</span>, these are akin to the residuals of a regular GLM analysis. Because each repeat within a repeated-measurements design is effectively a random draw from a probability distribution, then it makes sense that these deflections are also random and this <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> is also a <em>random-effect</em>.</p>
-<p><a class="reference external" href="https://www.taylorfrancis.com/books/mono/10.1201/9781315137421/analysis-repeated-measures-martin-crowder-david-hand">Crowder &amp; Hand (1990)</a> described the terms in this model in a more poetic fashion that may be useful for understanding. They describe the terms as</p>
+<p><a class="reference external" href="https://www.taylorfrancis.com/books/mono/10.1201/9781315137421/analysis-repeated-measures-martin-crowder-david-hand">Crowder &amp; Hand (1990)</a> described the terms in this model in a more poetic fashion that may be useful for understanding:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mu\)</span>: “An immutable constant of the universe”</p></li>
 <li><p><span class="math notranslate nohighlight">\(\eta_{j}\)</span>: “A lasting characteristic of the individual”</p></li>
 <li><p><span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> : “A fleeting aberration of the moment”</p></li>
 </ul>
-<p>Because <span class="math notranslate nohighlight">\(\eta_{j}\)</span> and <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span></p>
+<p>Because <span class="math notranslate nohighlight">\(\eta_{j}\)</span> and <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span> are effectively two error terms, they can be used to calculate <em>variance</em>, in the same way that the errors of the GLM can be used to calculate variance. Remembering that the basic definition of variance is</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma^{2} = frac{\sum{(y_{i} - \bar{y})^{2}}}{n - 1},
+\]</div>
+<p>we only need to recognise that <span class="math notranslate nohighlight">\(\bar{y}\)</span> is simply the mean of the distribution of interest. As such, when calculating <span class="math notranslate nohighlight">\(\sigma^{2}_{b}\)</span> we want the numerator to be the difference between the subject means and the group means (i.e. <span class="math notranslate nohighlight">\(\eta_{j}\)</span>). Thus the average sum-of-squared <span class="math notranslate nohighlight">\(\eta_{j}\)</span> terms gives us the estimate of the <em>between-subjects</em> variance. Similarly, if the numerator is the difference between the subject means and the raw data (i.e. <span class="math notranslate nohighlight">\(\epsilon_{ij}\)</span>), then the average sum-of-squares gives us an estimate of the <em>within-subject</em> variance.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
