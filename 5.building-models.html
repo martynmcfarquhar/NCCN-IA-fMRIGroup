@@ -410,12 +410,12 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{bmatrix}
-y_{1} \\
-y_{2} \\
-y_{3} \\
-y_{4} \\
-y_{5} \\
-y_{6} \\
+c_{1} \\
+c_{2} \\
+c_{3} \\
+c_{4} \\
+c_{5} \\
+c_{6} \\
 \end{bmatrix}
 =
 \begin{bmatrix}
@@ -440,10 +440,40 @@ y_{6} \\
 \epsilon_{6} \\
 \end{bmatrix}
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(y_1\)</span> is the contrast value from the 1st-level for subject 1, <span class="math notranslate nohighlight">\(y_2\)</span> is the contrast value from the 1st-level for subject 2 and so on. The design matrix contains no constant, with only a single indicator variable coding group 1 and a single indicator variable coding group 2. This lack of a constant is due to SPM using a <em>cell means</em> approach to modelling groups at the 2nd-level. The main benefit of this method is that the GLM parameters become the <em>means of the groups</em>. In the notation above, the parameters have been renamed to <span class="math notranslate nohighlight">\(\mu_1\)</span> and <span class="math notranslate nohighlight">\(\mu_2\)</span> to make this clearer. The parameter estimates for this model at this voxel will then be the average contrast value for group 1 and the average contrast value for group 2. We can then compare the group means at every voxel using the hypothesis testing framework already established.</p>
+<p>where <span class="math notranslate nohighlight">\(c_1\)</span> is the contrast value from the 1st-level for subject 1, <span class="math notranslate nohighlight">\(c_2\)</span> is the contrast value for subject 2 and so on. The design matrix contains no constant, with only a single indicator variable coding group 1 and a single indicator variable coding group 2. This lack of a constant is due to SPM using a <em>cell means</em> approach to modelling groups at the 2nd-level. The main benefit of this method is that the GLM parameters become the <em>means of the groups</em>. In the notation above, the parameters have been renamed to <span class="math notranslate nohighlight">\(\mu_1\)</span> and <span class="math notranslate nohighlight">\(\mu_2\)</span> to make this clearer. The parameter estimates for this model at this voxel will then be the average contrast value for group 1 and the average contrast value for group 2. We can then compare the group means at every voxel using the hypothesis testing framework already established.</p>
 </section>
 <section id="model-estimation">
 <h2>Model Estimation<a class="headerlink" href="#model-estimation" title="Permalink to this heading">#</a></h2>
+<p>Because we are recycling the GLM framework at the group-level, everything we have seen previously about estimation and inference remains the same. So we can still view our model at voxel <span class="math notranslate nohighlight">\(v\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{y}_{v} = \mathbf{X}\boldsymbol{\beta}_{v} + \boldsymbol{\epsilon}_{v},
+\]</div>
+<p>and we still estimate the parameters using</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\boldsymbol{\beta}}_{v} = (\mathbf{X}^{\prime}\mathbf{X})^{-1}\mathbf{X}^{\prime}\mathbf{y}_{v}.
+\]</div>
+<p>We create residuals using</p>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol{\epsilon}_{v} = \mathbf{y}_{v} - \mathbf{X}\boldsymbol{\beta}_{v},
+\]</div>
+<p>and estimate the variance using</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\sigma}^{2}_{v} = \frac{\boldsymbol{\epsilon}_{v}^{\prime}\boldsymbol{\epsilon}_{v}}{n-k}.
+\]</div>
+<p>In order to test hypotheses, we can still specify contrasts of the parameter estimates using</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{c}_{v} = \mathbf{L}\hat{\boldsymbol{\beta}}_{v},
+\]</div>
+<p>and can still create statistical maps that we threshold using corrected or uncorrected <span class="math notranslate nohighlight">\(p\)</span>-values, at either the cluster or peak-level, using FDR or FWE approaches. So everything remains exactly the same as we saw at the 1st-level.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The main difference between a single-subject and a group-level GLM is that the raw data are no longer a time-series of BOLD values, rather they are <em>contrast values</em> from the 1st-level GLM for each subject.</p>
+</div>
 </section>
 <section id="parameter-interpretation">
 <h2>Parameter Interpretation<a class="headerlink" href="#parameter-interpretation" title="Permalink to this heading">#</a></h2>
