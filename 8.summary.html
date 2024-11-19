@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Fixed-effects: The Wrong Way &#8212; fMRI Group-level Statistical Modelling</title>
+    <title>Summary &#8212; fMRI Group-level Statistical Modelling</title>
   
   
   
@@ -56,13 +56,10 @@
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '2.fixed-effects';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '8.summary';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Mixed-effects: The Best Way" href="3.mixed-effects.html" />
-    <link rel="prev" title="Sources of Variance" href="1.sources-variance.html" />
+    <link rel="prev" title="Group-level Modelling in SPM" href="7.group-spm.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,12 +179,12 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.sources-variance.html">Sources of Variance</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Fixed-effects: The Wrong Way</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.fixed-effects.html">Fixed-effects: The Wrong Way</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.mixed-effects.html">Mixed-effects: The Best Way</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.summary-stats.html">Summary Statistics: The SPM Way</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.building-models.html">Building Group-level Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="7.group-spm.html">Group-level Modelling in SPM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="8.summary.html">Summary</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Summary</a></li>
 </ul>
 
     </div>
@@ -259,7 +256,7 @@
       
       
       
-      <li><a href="https://github.com/martynmcfarquhar/NCCN-IA-fMRIGroup/issues/new?title=Issue%20on%20page%20%2F2.fixed-effects.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/martynmcfarquhar/NCCN-IA-fMRIGroup/issues/new?title=Issue%20on%20page%20%2F8.summary.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -289,7 +286,7 @@
       
       
       
-      <li><a href="_sources/2.fixed-effects.ipynb" target="_blank"
+      <li><a href="_sources/8.summary.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -360,9 +357,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -373,20 +368,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Fixed-effects: The Wrong Way</h1>
+    <h1>Summary</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-multiple-subjects-at-the-1st-level">Stacking Multiple Subjects at the 1st-level</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-use-is-a-ffx-analysis">What Use is a FFX Analysis?</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -396,73 +382,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="fixed-effects-the-wrong-way">
-<h1>Fixed-effects: The Wrong Way<a class="headerlink" href="#fixed-effects-the-wrong-way" title="Permalink to this heading">#</a></h1>
-<p>As described in the last section, if our interest is only on a single-subject then the variance we need to take into account is the <em>within-subject</em>. To put this into context, when we fit a single-subject GLM using SPM, the variance calculated from that model <em>is</em> the within-subject variance. This is because it is based on the errors of the GLM, which represent discrepancies between the measured time-series and the predicted time-series for that individual subject. This is the same as considering the spread of data around the subject’s own mean. Our hypothesis tests are then built using test statistics that use the within-subject variance, and so all our inference is based on the internal consistency of that one subject. This is perfectly valid, and reflects the fact that inference at the 1st-level is only relevant for that one subject and nobody else.</p>
-<section id="stacking-multiple-subjects-at-the-1st-level">
-<h2>Stacking Multiple Subjects at the 1st-level<a class="headerlink" href="#stacking-multiple-subjects-at-the-1st-level" title="Permalink to this heading">#</a></h2>
-<p>Early approaches to analysing fMRI data from multiple subjects involved expanding upon inference at the 1st-level by concatenating the data from multiple subjects. As an example, the design matrix shown in <a class="reference internal" href="#ffx-glm-fig"><span class="std std-numref">Fig. 5</span></a> involves stacking the individual 1st-level models for 10 subjects, and then using a contrast to average across the subjects to test for group effects.</p>
-<figure class="align-default" id="ffx-glm-fig">
-<a class="reference internal image-reference" href="_images/fixed-effects-glm.jpg"><img alt="_images/fixed-effects-glm.jpg" src="_images/fixed-effects-glm.jpg" style="width: 500px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Example of a fixed-effects analysis, conducted by stacking all the data and then modelling each subject as an individual block within a single large design matrix.</span><a class="headerlink" href="#ffx-glm-fig" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p>Although this may initially seem reasonable, there are some major problems with this approach. To see what they are, consider writing this model in terms of the GLM</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{bmatrix}
-\mathbf{y}_{1} \\
-\mathbf{y}_{2} \\
-\vdots         \\
-\mathbf{y}_{n} \\
-\end{bmatrix}
-=
-\begin{bmatrix}
-\mathbf{X}_{1} &amp; \mathbf{0} &amp; \mathbf{0} &amp; \mathbf{0} \\
-\mathbf{0} &amp; \mathbf{X}_{2} &amp; \mathbf{0} &amp; \mathbf{0} \\
-\mathbf{0} &amp; \mathbf{0} &amp; \ddots &amp; \vdots \\
-\mathbf{0} &amp; \mathbf{0} &amp; \dots &amp; \mathbf{X}_{n} \\
-\end{bmatrix}
-\begin{bmatrix}
-\boldsymbol{\beta}_{1} \\
-\boldsymbol{\beta}_{2} \\
-\vdots \\
-\boldsymbol{\beta}_{n} \\
-\end{bmatrix}
-+
-\begin{bmatrix}
-\boldsymbol{\epsilon}_{1} \\
-\boldsymbol{\epsilon}_{2} \\
-\vdots \\
-\boldsymbol{\epsilon}_{n} \\
-\end{bmatrix}
-\end{split}\]</div>
-<p>where the indices correspond to individual subjects and <span class="math notranslate nohighlight">\(\mathbf{0}\)</span> refers to a sub-matrix of all zeros. As we can see, the errors in this model are just a stack of the errors from the individual single-subject models. As we know, these represent within-subject errors, because they tell us the discrepancies between the raw data and the model for each subject. The overall model variance for this big GLM is therefore the <em>average within-subject variance</em> from across the subjects. This means that any hypothesis tests from this model will use the average within-subject variance for inference. What this does not do is take the <em>between-subject</em> variance into account which, as we have established, is the most important element for making inference about a group of subjects. As such, there is nothing in this approach that considers this particular group of subjects as representative of a larger population of subjects.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In statistical jargon, if we do not treat subjects as being drawn from a larger population then the subjects represent a <em>fixed-effect</em>. As such, this approach is known as a <em>fixed-effects analysis</em>, sometimes shortened to <a class="reference external" href="https://en.wikipedia.org/wiki/Final_Fantasy_X">FFX</a>.</p>
-</div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The conclusion from this is that a FFX approach is <em>not appropriate</em> for modelling group-level fMRI data. Although it may seem somewhat harmless doing things this way, the issue is that the within-subject variance is generally much smaller than the between-subjects variance. As such, trying to use the within-subject variance for inference about a population leads to a <em>massively inflated false positive rate</em>.</p>
-</div>
-</section>
-<section id="what-use-is-a-ffx-analysis">
-<h2>What Use is a FFX Analysis?<a class="headerlink" href="#what-use-is-a-ffx-analysis" title="Permalink to this heading">#</a></h2>
-<p>If we now know that a FFX analysis is inappropriate, why are we discussing it? The first reason is to make sure that you are not tricked into using a FFX approach by the <code class="docutils literal notranslate"><span class="pre">SPM</span></code> interface. You may recall when we specified single-subject models, <code class="docutils literal notranslate"><span class="pre">SPM</span></code> asks to you add a <code class="docutils literal notranslate"><span class="pre">New:</span> <span class="pre">Subject/Session</span></code>, which does give the impression that putting multiple subjects in at the 1st-level is the way to analyse multiple subjects. This is shown in <a class="reference internal" href="#spm-add-sub-fig"><span class="std std-numref">Fig. 6</span></a>.</p>
-<figure class="align-default" id="spm-add-sub-fig">
-<a class="reference internal image-reference" href="_images/spm-add-subject.png"><img alt="_images/spm-add-subject.png" src="_images/spm-add-subject.png" style="width: 440px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Reminder that the <code class="docutils literal notranslate"><span class="pre">SPM</span></code> interface does imply that you can add multiple subjects at the 1st-level.</span><a class="headerlink" href="#spm-add-sub-fig" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p>The second reason is that there is <em>sometimes</em> good reason for using FFX. If you find yourself in a situation where you only want to reach conclusions about a single set of subjects, then a FFX analysis is entirely appropriate. Case studies are not entirely uncommon, particularly if you are studying individuals with very specific deficits or unique pathologies. In addition, if you have multiple sessions from the same subject, then you can treat this the same way as a FFX analysis by stacking the sessions into the same design matrix. Because this is still inference on the same subject, pooling the within-subject variance across the multiple sessions is a perfectly justifiable thing to do. So, there are times when FFX are appropriate, even if this is not the methods we are going to use for most of our analyses.</p>
-<div class="admonition-history-of-ffx-analyses admonition">
-<p class="admonition-title">History of FFX Analyses</p>
-<p>Many early fMRI studies erroneously used a FFX approach. Perhaps the most surprising thing about this is how long it took the fMRI community to realise there was a problem. The earliest reference to this issue is from a 1998 conference abstract submitted by <a class="reference external" href="https://www.fil.ion.ucl.ac.uk/spm/doc/papers/aph_rfx.pdf">Holmes &amp; Friston</a>. Considering the fact that methods for analysing fMRI data had been progressing steadily from 1992 onwards, this was a significant delay in terms of understanding the most appropriate means of making group-level inference. Even then, the solution proposed by <a class="reference external" href="https://www.fil.ion.ucl.ac.uk/spm/doc/papers/aph_rfx.pdf">Holmes &amp; Friston (1998)</a> was not properly validated until 2009 by <a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S1053811909005473?via%3Dihub">Mumford &amp; Nichols</a>, over 10 years later.</p>
-</div>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="summary">
+<h1>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h1>
+<p>In this lesson, we have seen how to complete our fMRI analysis journey by combining multiple single-subject analyses into a group-level analysis. The group-level analysis allow us to make inferences about brain responses in the wider population and thus represents the end of our fMRI analysis. By using the GLM framework again, much of the process involved in the group-level analysis is the same as the single-subject analysis. The differences come in terms of interpretation, model construction and the most suitable type of inference. In a later lesson, we will see approaches to visualisation that can help make further sense of group-level results. In the mean-time, it is worthwhile spending some time getting comfortable with the idea of taking <em>differences</em> through to the group-level, thinking carefully about the consequences in terms of what group effects <em>actually mean</em>. This is the trickiest aspect of group-level models, so make sure you do not neglect getting to grips with this. Now would also be a good time to review the entire analysis process to make sure you are clear on the steps we take and the reasoning behind these steps.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -496,22 +418,13 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="1.sources-variance.html"
+       href="7.group-spm.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Sources of Variance</p>
+        <p class="prev-next-title">Group-level Modelling in SPM</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="3.mixed-effects.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Mixed-effects: The Best Way</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -519,22 +432,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-multiple-subjects-at-the-1st-level">Stacking Multiple Subjects at the 1st-level</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-use-is-a-ffx-analysis">What Use is a FFX Analysis?</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
